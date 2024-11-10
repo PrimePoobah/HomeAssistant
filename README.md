@@ -213,33 +213,13 @@ series:
 
 We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
 
-### Development
-1. Clone this repository
-2. Install development dependencies:
-   ```bash
-   pip install -r requirements_dev.txt
-   ```
-3. Run tests:
-   ```bash
-   pytest
-   ```
-
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
-## Support
-
-Need help? Try these resources:
-
-- [Documentation](docs)
-- [GitHub Issues](../../issues)
-- [Discussion Forum](../../discussions)
-
 ## Authors
 
-- Original Author: @yourusername
-- [List of Contributors](../../contributors)
+- Original Author: @PrimePoobah
 
 ---
 
