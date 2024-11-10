@@ -2,13 +2,6 @@
 
 # 🌡️ Weather Extremes Tracker for Home Assistant
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/PrimePoobah/HomeAssistant/)
-![hassfest validation](https://github.com/PrimePoobah/HomeAssistant/weather-extremes/workflows/Validate%20with%20hassfest/badge.svg)
-![Maintenance](https://img.shields.io/maintenance/yes/2024.svg)
-[![GitHub Release][releases-shield]][releases]
-[![GitHub Activity][commits-shield]][commits]
-[![License][license-shield]](LICENSE)
-
 Track temperature and weather extremes over multiple time periods in Home Assistant. This custom component records high and low values for any sensor across daily, weekly, monthly, yearly, and all-time periods.
 
 ## Features
