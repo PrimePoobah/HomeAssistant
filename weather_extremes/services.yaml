@@ -1,0 +1,234 @@
+# Service definitions for Weather Extremes Tracker
+#
+# These services allow management and control of the Weather Extremes integration
+# Each service includes validation and proper UI selectors for easy use
+
+reset_period:
+  name: Reset Period
+  description: Reset the extremes for a specific sensor and time period. This will clear the high and low values for the selected period.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor to reset
+      required: true
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+    period:
+      name: Period
+      description: The time period to reset (day, week, month, year, or all_time)
+      required: true
+      example: "day"
+      selector:
+        select:
+          options:
+            - "day"
+            - "week"
+            - "month"
+            - "year"
+            - "all_time"
+
+clear_history:
+  name: Clear History
+  description: Clear all historical data for one or more sensors. This will reset all periods and remove all stored values.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor(s) to clear. Leave empty to clear all sensors.
+      required: false
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+          multiple: true
+
+update_extremes:
+  name: Update Extremes
+  description: Manually update extremes for a sensor with a specific value. Useful for correcting errors or adding historical data.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor to update
+      required: true
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+    value:
+      name: Value
+      description: The value to record (in the sensor's unit of measurement)
+      required: true
+      example: 25.5
+      selector:
+        number:
+          mode: box
+          step: 0.1
+    timestamp:
+      name: Timestamp
+      description: Optional timestamp for the value. Defaults to current time if not specified.
+      required: false
+      example: "2024-01-01 12:00:00"
+      selector:
+        datetime:
+
+export_data:
+  name: Export Data
+  description: Export historical data to a file in either JSON or CSV format. This allows backing up data or analyzing it in external tools.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor(s) to export. Leave empty to export all sensors.
+      required: false
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+          multiple: true
+    format:
+      name: Format
+      description: Export format (JSON provides more detail, CSV is better for spreadsheets)
+      required: true
+      default: json
+      example: "json"
+      selector:
+        select:
+          options:
+            - label: "JSON (Complete data)"
+              value: "json"
+            - label: "CSV (Spreadsheet friendly)"
+              value: "csv"
+    path:
+      name: Path
+      description: Optional path for export file. Defaults to config directory if not specified.
+      required: false
+      example: "/config/weather_export.json"
+      selector:
+        text:
+
+import_data:
+  name: Import Data
+  description: Import historical data from a file. Supports both JSON and CSV formats with different merge strategies.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor to import into
+      required: true
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+    file_path:
+      name: File Path
+      description: Path to the import file (must be accessible to Home Assistant)
+      required: true
+      example: "/config/weather_import.json"
+      selector:
+        text:
+    merge_strategy:
+      name: Merge Strategy
+      description: How to handle conflicts between existing and imported data
+      required: true
+      default: keep_existing
+      example: "keep_extreme"
+      selector:
+        select:
+          options:
+            - label: "Keep Existing Values"
+              value: "keep_existing"
+            - label: "Overwrite with Imported Values"
+              value: "overwrite"
+            - label: "Keep Most Extreme Values"
+              value: "keep_extreme"
+
+update_averaging_window:
+  name: Update Averaging Window
+  description: Update the rolling average window size for a sensor. This affects how many minutes of data are used for the current average.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor to update
+      required: true
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+    window_size:
+      name: Window Size
+      description: New averaging window size in minutes (1-60)
+      required: true
+      example: 15
+      default: 5
+      selector:
+        number:
+          min: 1
+          max: 60
+          step: 1
+          unit_of_measurement: "minutes"
+          mode: slider
+
+purge_old_data:
+  name: Purge Old Data
+  description: Remove data older than specified date. This helps manage storage and remove outdated information.
+  fields:
+    entity_id:
+      name: Entity
+      description: The entity_id of the weather extremes sensor(s) to purge. Leave empty to purge all sensors.
+      required: false
+      example: "sensor.weather_extremes_outdoor_temperature_day_high"
+      selector:
+        entity:
+          integration: weather_extremes
+          multiple: true
+    before_date:
+      name: Before Date
+      description: Remove data before this date and time
+      required: true
+      example: "2024-01-01 00:00:00"
+      selector:
+        datetime:
+
+backup_data:
+  name: Backup Data
+  description: Create a complete backup of all sensor data and configuration
+  fields:
+    path:
+      name: Backup Path
+      description: Optional path for backup file. Defaults to config directory if not specified.
+      required: false
+      example: "/config/weather_backup.json"
+      selector:
+        text:
+    include_config:
+      name: Include Configuration
+      description: Include sensor configuration in backup
+      required: false
+      default: true
+      selector:
+        boolean:
+
+restore_data:
+  name: Restore Data
+  description: Restore data from a backup file
+  fields:
+    file_path:
+      name: Backup File Path
+      description: Path to the backup file to restore from
+      required: true
+      example: "/config/weather_backup.json"
+      selector:
+        text:
+    restore_config:
+      name: Restore Configuration
+      description: Also restore sensor configuration from backup
+      required: false
+      default: false
+      selector:
+        boolean:
+    reset_existing:
+      name: Reset Existing Data
+      description: Clear all existing data before restore
+      required: false
+      default: false
+      selector:
+        boolean:
