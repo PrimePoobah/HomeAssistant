@@ -1,0 +1,29 @@
+alias: Permanent Lights Pro Christmas Tree
+description: >-
+  Turn on Permanent Lights Pro with the Christmas Tree scene each day between
+  Nov 15 and Jan 2, 30 minutes before sunset, and turn off 7 hours later.
+triggers:
+  - event: sunset
+    offset: "-00:34:00"
+    trigger: sun
+conditions:
+  - condition: template
+    value_template: >
+      {% set m = now().month %} {% set d = now().day %} {{ (m == 11 and d >= 15)
+      or (m == 12) or (m == 1 and d <= 2) }}
+actions:
+  - target:
+      entity_id: light.permanent_lights_pro
+    data:
+      effect: Christmas Tree
+      profile: Christmas Tree
+    action: light.turn_on
+  - delay:
+      hours: 7
+      minutes: 6
+      seconds: 0
+      milliseconds: 0
+  - target:
+      entity_id: light.permanent_lights_pro
+    action: light.turn_off
+mode: single
