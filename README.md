@@ -1,12 +1,12 @@
 # Home Assistant Automations
 
-This repository is where I'll store all things related to Home Assistant; at the moment it highlights a holiday lighting automation for Permanent Lights Pro.
+This repository is where I'll store all things related to Home Assistant; at the moment it highlights a holiday lighting automation for Govee Permanent Lights Pro (Govee Permanent Outdoor Lights).
 
-## Permanent Lights Pro Christmas Automation
+## Govee Permanent Lights Pro Christmas Automation
 
 - Runs daily from November 15 through January 2 (inclusive).
 - Triggers 34 minutes before sunset.
-- Turns on `light.permanent_lights_pro` with the "Christmas Tree" effect/profile.
+- Turns on `light.permanent_lights_pro` (Govee Permanent Lights Pro) with the "Christmas Tree" effect/profile.
 - Turns off after 7 hours and 6 minutes.
 - Uses the new Home Assistant automation format.
 
@@ -14,9 +14,9 @@ File: `automation_permanent_lights_pro_christmas.yaml`
 
 ### YAML (for reference)
 ```yaml
-alias: Permanent Lights Pro Christmas Tree
+alias: Govee Permanent Lights Pro Christmas Tree
 description: >
-  Turn on Permanent Lights Pro with the Christmas Tree scene each day between
+  Turn on Govee Permanent Lights Pro with the Christmas Tree scene each day between
   Nov 15 and Jan 2, 34 minutes before sunset, and turn off 7 hours 6 minutes later.
 triggers:
   - event: sunset

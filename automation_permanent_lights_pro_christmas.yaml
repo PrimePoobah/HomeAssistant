@@ -1,7 +1,7 @@
-alias: Permanent Lights Pro Christmas Tree
+alias: Govee Permanent Lights Pro Christmas Tree
 description: >-
-  Turn on Permanent Lights Pro with the Christmas Tree scene each day between
-  Nov 15 and Jan 2, 30 minutes before sunset, and turn off 7 hours later.
+  Turn on Govee Permanent Lights Pro with the Christmas Tree scene each day between
+  Nov 15 and Jan 2, 34 minutes before sunset, and turn off 7 hours and 6 minutes later.
 triggers:
   - event: sunset
     offset: "-00:34:00"
